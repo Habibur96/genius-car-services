@@ -20,7 +20,7 @@ const Services = () => {
                 <div>
                     <h1 className='services-title text-primary text-center mt-5 mb-5'>Our Services</h1>
 
-                    <div className="services-container">
+                    <div className="services-container ">
 
                         {
                             services.map(service => <Service
