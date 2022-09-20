@@ -1,12 +1,13 @@
 import React from 'react';
+import { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    // const nameRef = navigator('');
-    // const emailRef = navigator('');
-    // const passwordRef = navigator('');
-    // const navigate = useNavigate();
+    const nameRef = useRef('');
+    const emailRef = useRef('');
+    const passwordRef = useRef('');
+    const navigate = useNavigate();
 
     const handleRegister = e => {
         const a = e.target.value;
@@ -15,22 +16,22 @@ const Register = () => {
 
 
     const navigateRegister = event => {
-        // navigate('/login');
+        navigate('/login');
     }
     return (
         <div className='container w-50 mx-auto mt-5'>
-            <h2 className='text-primary'>Please Register</h2>
+            <h2>Please Register</h2>
 
             <Form className='fs-3 '>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label >Name</Form.Label>
-                    <Form.Control type="text" placeholder="Your Name" required />
+                    <Form.Label >Email address</Form.Label>
+                    <Form.Control ref={nameRef} type="text" placeholder="Your Name" required />
                 </Form.Group>
 
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label >Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" required />
+                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </Form.Text>
@@ -38,7 +39,7 @@ const Register = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label >Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" required />
+                    <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
