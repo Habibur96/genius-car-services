@@ -8,7 +8,7 @@ const Services = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        fetch('https://carservices.free.beeceptor.com')
+        fetch('services.json')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])

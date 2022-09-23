@@ -13,16 +13,16 @@ import gitHub from '../../../../images/gitHub.png';
 const SocialLogin = () => {
 
     const [signInWithGoogle, user, error] = useSignInWithGoogle(auth);
-    const [signInWithGithub, user1] = useSignInWithGithub(auth);
+    const [signInWithGithub, user1, error1] = useSignInWithGithub(auth);
 
     const navigate = useNavigate();
 
     let errorElement;
-    if (error) {
+    if (error || error1) {
 
-        errorElement = <div>
-            <p className='text-danger'>Error:{error.message}</p>
-        </div>
+        errorElement =
+            <p className='text-danger'>Error: {error?.message}  {error1?.message}</p>
+
     }
 
     if (user || user1) {

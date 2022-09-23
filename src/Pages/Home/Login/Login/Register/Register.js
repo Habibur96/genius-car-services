@@ -57,6 +57,7 @@
 // export default Register;
 
 import React from 'react';
+import { useState } from 'react';
 import { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -65,6 +66,7 @@ import auth from '../../../../../firebase.init';
 import SocialLogin from '../../SocialLogin/SocialLogin';
 
 const Register = () => {
+    const [agree, setAgree] = useState(false);
     const [
         createUserWithEmailAndPassword,
         user
@@ -80,20 +82,18 @@ const Register = () => {
 
     const handleRegister = event => {
         event.preventDefault();
-        // const name = nameRef.current.value;
-        // const email = emailRef.current.value;
-        // const password = passwordRef.current.value;
 
         const email = event.target.email.value;
         const password = event.target.password.value;
-        //  console.log(email, password)
-        createUserWithEmailAndPassword(email, password)
-        // console.log({ email, password })
-        // console.log({ email.email, password.password })
-        // console.log("from submitted")
+        // const agree = event.target.terms.checked;
+
+        if (agree) {
+            createUserWithEmailAndPassword(email, password)
+        }
+
     }
 
-    console.log(user)
+
     if (user) {
         navigate('/login')
     }
@@ -124,10 +124,10 @@ const Register = () => {
                     <Form.Control type="password" name="password" placeholder="Password" ref={passwordRef} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Check onClick={() => setAgree(!agree)} className='fs-4' className={agree ? 'text-primary' : 'text-danger'} type="checkbox" label="Accept Genius Car and Conditions" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button disabled={!agree} variant="primary" type="submit">
+                    Register
                 </Button>
 
             </Form>
