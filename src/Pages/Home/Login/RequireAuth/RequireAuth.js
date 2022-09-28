@@ -1,15 +1,15 @@
 
+
+
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth'
-import app from '../../../../firebase.init'
-import { getAuth } from 'firebase/auth';
-
-const auth = getAuth(app)
+import auth from '../../../../firebase.init'
 const RequireAuth = ({ children }) => {
     const [user] = useAuthState(auth);
 
     const location = useLocation();
+
 
     if (!user) {
 
@@ -19,4 +19,11 @@ const RequireAuth = ({ children }) => {
 };
 
 export default RequireAuth;
+
+
+
+
+
+
+
 
