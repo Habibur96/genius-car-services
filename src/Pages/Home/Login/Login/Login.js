@@ -21,17 +21,20 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(
-        auth
+        auth, { sendPasswordResetEmail: true }
     );
 
     if (user) {
         navigate('/home')
     }
 
+    //Forget Password
     const resetPassword = async () => {
         const email = emailRef.current.value;
         await sendPasswordResetEmail(email);
-        alert('Sent email');
+        // alert('Sent email');
+        console.log('sent mail')
+        navigate('/home')
     }
 
     let errorElement;
@@ -42,8 +45,8 @@ const Login = () => {
 
     }
 
-    //Forget Password
-    const handleSubmit = event => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
@@ -51,6 +54,8 @@ const Login = () => {
         if (agree) {
 
             signInWithEmailAndPassword(email, password);
+            // alert('Sent email');
+
         }
     }
 

@@ -56,6 +56,9 @@
 
 // export default Register;
 
+
+import { async } from '@firebase/util';
+import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import React from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
@@ -70,9 +73,9 @@ const Register = () => {
     const [
         createUserWithEmailAndPassword,
         user
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-
+    const [updateProfile] = useUpdateProfile(auth);
     const nameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -80,23 +83,27 @@ const Register = () => {
 
 
 
-    const handleRegister = event => {
+    const handleRegister = async (event) => {
         event.preventDefault();
 
         const email = event.target.email.value;
+        const name = event.target.name.value;
         const password = event.target.password.value;
         // const agree = event.target.terms.checked;
 
-        if (agree) {
-            createUserWithEmailAndPassword(email, password)
-        }
+        //Update Profile
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        console.log('Updated profile');
+        navigate('/login');
 
     }
 
 
-    if (user) {
-        navigate('/login')
-    }
+    // if (user) {
+    //     console.log('user', user)
+    //     navigate('/login')
+    // }
 
 
     const navigateRegister = event => {
